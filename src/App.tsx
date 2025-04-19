@@ -81,49 +81,21 @@ function App() {
           </section>
           
           <div className="bg-white rounded-lg shadow-md p-6 mb-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="space-y-6">
-                <IngredientInput onAddIngredients={handleAddIngredients} />
-                <MealTypeSelector
-                  selectedMealType={mealType}
-                  onSelectMealType={handleSelectMealType}
-                />
-                <DietaryPreferences
-                  selectedPreferences={preferences}
-                  onTogglePreference={togglePreference}
-                />
-                <GenerateMealButton
-                  onGenerate={handleGenerateMeal}
-                  disabled={!canGenerate}
-                  loading={isLoading}
-                />
-              </div>
-              
-              <div className="bg-purple-50 p-6 rounded-lg">
-                <h2 className="text-xl font-semibold text-gray-800 mb-4">Quick Tips</h2>
-                <ul className="space-y-3">
-                  <li className="flex items-start">
-                    <span className="text-[#4F2683] mr-2">•</span>
-                    <span>Don't throw away leftovers! They can become tomorrow's meal.</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-[#4F2683] mr-2">•</span>
-                    <span>Frozen veggies are just as nutritious as fresh ones.</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-[#4F2683] mr-2">•</span>
-                    <span>Canned beans and tuna are cheap protein sources.</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-[#4F2683] mr-2">•</span>
-                    <span>A bottle of hot sauce can transform any bland meal.</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-[#4F2683] mr-2">•</span>
-                    <span>Cook rice or pasta in bulk and refrigerate for quick meals.</span>
-                  </li>
-                </ul>
-              </div>
+            <div className="grid grid-cols-1 gap-6">
+              <IngredientInput onAddIngredients={handleAddIngredients} />
+              <MealTypeSelector
+                selectedMealType={mealType}
+                onSelectMealType={handleSelectMealType}
+              />
+              <DietaryPreferences
+                selectedPreferences={preferences}
+                onTogglePreference={togglePreference}
+              />
+              <GenerateMealButton
+                onGenerate={handleGenerateMeal}
+                disabled={!canGenerate}
+                loading={isLoading}
+              />
             </div>
           </div>
         </div>

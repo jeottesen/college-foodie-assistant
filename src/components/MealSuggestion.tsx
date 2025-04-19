@@ -14,6 +14,12 @@ const MealSuggestion: React.FC<MealSuggestionProps> = ({ suggestion }) => {
         {parse(suggestion.instructions)}
       </div>
 
+      {suggestion.quickTips && (
+        <div className="mt-8">
+          {parse(suggestion.quickTips)}
+        </div>
+      )}
+
       {suggestion.healthyTip && (
         <div className="bg-purple-50 p-4 rounded-md mb-4 mt-6">
           <div className="flex items-start">

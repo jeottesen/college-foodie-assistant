@@ -36,6 +36,26 @@ const generatePrompt = (ingredients: Ingredient[], mealType: string, preferences
       </div>
     </instructions>
     
+    <quickTips>
+      <div class="quick-tips bg-purple-50 p-6 rounded-lg mt-8">
+        <h3 class="text-xl font-semibold text-gray-800 mb-4">Quick Tips</h3>
+        <ul class="space-y-3">
+          <li class="flex items-start">
+            <span class="text-[#4F2683] mr-2">•</span>
+            <span>First quick tip</span>
+          </li>
+          <li class="flex items-start">
+            <span class="text-[#4F2683] mr-2">•</span>
+            <span>Second quick tip</span>
+          </li>
+          <li class="flex items-start">
+            <span class="text-[#4F2683] mr-2">•</span>
+            <span>Third quick tip</span>
+          </li>
+        </ul>
+      </div>
+    </quickTips>
+    
     <healthyTip>
       <div class="healthy-tip">
         <p class="font-semibold mb-2">Healthy Tip:</p>
@@ -51,7 +71,7 @@ const generatePrompt = (ingredients: Ingredient[], mealType: string, preferences
     </leftoverIdea>
   </meal>
 
-  Keep the tone casual and friendly, and make sure to use proper HTML formatting with the provided Tailwind classes!`;
+  Include 3 relevant quick tips specific to the meal being prepared. Keep the tone casual and friendly, and make sure to use proper HTML formatting with the provided Tailwind classes!`;
 };
 
 const parseGeminiResponse = (response: string): MealSuggestion => {
@@ -62,14 +82,16 @@ const parseGeminiResponse = (response: string): MealSuggestion => {
   };
 
   const instructions = getTagContent('instructions');
+  const quickTips = getTagContent('quickTips');
   const healthyTip = getTagContent('healthyTip');
   const leftoverIdea = getTagContent('leftoverIdea');
 
   return {
     id: Math.random().toString(36).substr(2, 9),
     title: 'Quick Meal Idea',
-    ingredients: [],  // We'll let the HTML content handle this
+    ingredients: [],
     instructions,
+    quickTips,
     prepTime: '15-20 minutes',
     mealType: 'quick meal',
     healthyTip,
@@ -86,13 +108,9 @@ export const generateMealSuggestions = async (
     const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
     const prompt = generatePrompt(ingredients, mealType, preferences);
     
-    console.log('Gemini Prompt:', prompt);
-    
     const result = await model.generateContent(prompt);
     const response = await result.response;
     const text = response.text();
-    
-    console.log('Gemini Response:', text);
     
     return [parseGeminiResponse(text)];
   } catch (error) {
@@ -104,6 +122,7 @@ export const generateMealSuggestions = async (
       instructions: '<div class="text-red-600">Sorry, we had trouble generating a meal suggestion. Please try again!</div>',
       prepTime: 'N/A',
       mealType: 'error',
+      quickTips: '',
       healthyTip: '',
       leftoverIdea: ''
     }];

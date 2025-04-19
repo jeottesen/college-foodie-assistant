@@ -20,6 +20,7 @@ export interface MealSuggestion {
   instructions: string;
   prepTime: string;
   mealType: string;
+  quickTips: string;
   healthyTip?: string;
   leftoverIdea?: string;
 }
